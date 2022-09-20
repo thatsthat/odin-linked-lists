@@ -29,7 +29,6 @@ const LinkedList = () => {
       // Modify the nexID value of previous last node
       nodes[currentID].nextID = node.ownID;
     }
-    console.log(nodes);
   };
 
   const prepend = (nodeVal) => {
@@ -48,10 +47,52 @@ const LinkedList = () => {
       // This node becomes the new head node
       headID = node.ownID;
     }
-    console.log(nodes);
   };
 
-  return { append, prepend };
+  const size = () => {
+    // First node on the list
+    if (headID == null) {
+      return 0;
+    } else {
+      let currentID = headID;
+      // At least there is 0ne node since headID is not null
+      let count = 1;
+      while (!(nodes[currentID].nextID == null)) {
+        currentID = nodes[currentID].nextID;
+        count += 1;
+      }
+      // Once last node reached, return count
+      return count;
+    }
+  };
+
+  const head = () => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      return at(headID);
+    }
+  };
+
+  const at = (inpID) => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        if (nodes[currentID].ownID == inpID) {
+          return nodes[currentID];
+        }
+        currentID = nodes[currentID].nextID;
+      }
+      // If last node reached without match, error
+      throw "None of the nodes on the list corresponds to this ID";
+    }
+  };
+
+  return { append, prepend, size, head, at };
 };
 
 const myLinkedList = LinkedList();
@@ -60,3 +101,4 @@ myLinkedList.append("hola");
 myLinkedList.append("Pola");
 myLinkedList.append("Bola");
 myLinkedList.prepend("mola");
+console.log(myLinkedList.size());
