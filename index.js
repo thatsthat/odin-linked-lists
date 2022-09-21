@@ -92,7 +92,36 @@ const LinkedList = () => {
     }
   };
 
-  return { append, prepend, size, head, at };
+  const tail = () => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        currentID = nodes[currentID].nextID;
+      }
+      // When we reach the end of the list, return the last node
+      return nodes[currentID];
+    }
+  };
+
+  const pop = () => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        previousID = nodes[currentID].ownID;
+        currentID = nodes[currentID].nextID;
+      }
+      // When we reach the end of the list, delete last node
+      nodes[previousID].nextID = null;
+    }
+  };
+
+  return { append, prepend, size, head, at, tail, pop };
 };
 
 const myLinkedList = LinkedList();
@@ -100,5 +129,8 @@ const myLinkedList = LinkedList();
 myLinkedList.append("hola");
 myLinkedList.append("Pola");
 myLinkedList.append("Bola");
-myLinkedList.prepend("mola");
-console.log(myLinkedList.size());
+myLinkedList.append("mola");
+console.log(myLinkedList.head());
+console.log(myLinkedList.tail());
+myLinkedList.pop();
+console.log(myLinkedList.tail());
