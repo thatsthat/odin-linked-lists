@@ -177,6 +177,53 @@ const LinkedList = () => {
     return outString;
   };
 
+  const insertAt = (inpVal, inpID) => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        previousID = nodes[currentID].ownID;
+        currentID = nodes[currentID].nextID;
+        if (currentID == inpID) {
+          const node = Node(inpVal, lastUsedID + 1, inpID);
+          nodes.push(node);
+          lastUsedID = node.ownID;
+          nodes[previousID].nextID = node.ownID;
+          return;
+        }
+      }
+      if (nodes[currentID].ownID == inpID) {
+        append(inpVal);
+      } else {
+        throw "ID not found";
+      }
+    }
+  };
+
+  const removeAt = (inpID) => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        previousID = nodes[currentID].ownID;
+        currentID = nodes[currentID].nextID;
+        if (currentID == inpID) {
+          nodes[previousID].nextID = nodes[currentID].nextID;
+          return;
+        }
+      }
+      if (nodes[currentID].ownID == inpID) {
+        nodes[previousID].nextID = null;
+      } else {
+        throw "ID not found";
+      }
+    }
+  };
+
   return {
     append,
     prepend,
@@ -188,6 +235,8 @@ const LinkedList = () => {
     contains,
     find,
     toString,
+    insertAt,
+    removeAt,
   };
 };
 
@@ -197,4 +246,8 @@ myLinkedList.append("hola");
 myLinkedList.append("Pola");
 myLinkedList.append("Bola");
 myLinkedList.append("mola");
+console.log(myLinkedList.toString());
+myLinkedList.insertAt("sola", 2);
+console.log(myLinkedList.toString());
+myLinkedList.removeAt(2);
 console.log(myLinkedList.toString());
