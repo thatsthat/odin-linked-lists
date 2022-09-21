@@ -121,7 +121,74 @@ const LinkedList = () => {
     }
   };
 
-  return { append, prepend, size, head, at, tail, pop };
+  const contains = (inpVal) => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        if (nodes[currentID].value == inpVal) {
+          return true;
+        }
+        currentID = nodes[currentID].nextID;
+      }
+      if (nodes[currentID].value == inpVal) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
+  const find = (inpVal) => {
+    // First node on the list
+    if (headID == null) {
+      throw "The list is empty";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        if (nodes[currentID].value == inpVal) {
+          return nodes[currentID].ownID;
+        }
+        currentID = nodes[currentID].nextID;
+      }
+      if (nodes[currentID].value == inpVal) {
+        return nodes[currentID].ownID;
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const toString = () => {
+    // First node on the list
+    let outString = "";
+    if (headID == null) {
+      outString = "null";
+    } else {
+      let currentID = headID;
+      while (!(nodes[currentID].nextID == null)) {
+        outString = outString.concat(`( ${nodes[currentID].value} ) -> `);
+        currentID = nodes[currentID].nextID;
+      }
+      outString = outString.concat(`( ${nodes[currentID].value} ) -> null`);
+    }
+    return outString;
+  };
+
+  return {
+    append,
+    prepend,
+    size,
+    head,
+    at,
+    tail,
+    pop,
+    contains,
+    find,
+    toString,
+  };
 };
 
 const myLinkedList = LinkedList();
@@ -130,7 +197,4 @@ myLinkedList.append("hola");
 myLinkedList.append("Pola");
 myLinkedList.append("Bola");
 myLinkedList.append("mola");
-console.log(myLinkedList.head());
-console.log(myLinkedList.tail());
-myLinkedList.pop();
-console.log(myLinkedList.tail());
+console.log(myLinkedList.toString());
